@@ -1,4 +1,7 @@
+load("@bazel_skylib//lib:shell.bzl", "shell")
+
 load("//:base-system.lock.bzl", _base_packages = "make_packages")
+load("//:vm.lock.bzl", _vm_base_packages = "make_packages")
 load("//:deb_rules.bzl", "deb_extract")
 load("//:qemu_overlay.bzl", "qemu_overlay")
 
@@ -6,15 +9,18 @@ exports_files([
     "qemu_overlay_run.py",
     "input_rootfs.tar",
     "mkinitramfs.py",
-    "make_installer_script.py",
+    "make_installable.py",
     "assemble.py",
     "init.sh",
+    # TODO: autogenerate
+    "vm-packages-info",
 ])
 
 # Step 1: assemble some packages into a base image
 
 # Fetch some packages
 _base_packages("base-packages")
+_vm_base_packages("vm-packages")
 
 genrule(
     name = "unprocessed-image",
@@ -80,11 +86,9 @@ deb_extract(
 # Actually run qemu and save the output
 qemu_overlay(
     name = "processed",
+    kernel = ":vmlinuz",
     initramfs = ":initramfs",
-    kernel_image = ":vmlinuz",
-    out_tarball = "intermediate.tar",
-    runner = ":qemu_overlay_run.py",
-    src_tarball = ":unprocessed-image",
+    src_tarballs = [":unprocessed-image"],
 )
 
 # Step 3: Filter the output (modify mtimes)
@@ -96,4 +100,28 @@ genrule(
     ],
     outs = ["base-system.tar"],
     cmd = "$(location output_filter.py) $(location :processed) \"$@\"",
+)
+
+# Step 4: Install some packages the normal way
+genrule(
+    name = "vm-installer",
+    srcs = [
+        "make_installable.py",
+        ":vm-packages",
+        ":vm-packages-info",
+    ],
+    outs = ["vm-installer.tar"],
+    cmd = "$(location make_installable.py) \"$@\" systemd linux-image-virtual udev -- $(location vm-packages-info) $(locations :vm-packages)",
+)
+
+
+qemu_overlay(
+    name = "vm-installed",
+    kernel = ":vmlinuz",
+    initramfs = ":initramfs",
+    src_tarballs = [
+    	":base-system",
+        ":vm-installer",
+    ],
+    mode = "layer",
 )

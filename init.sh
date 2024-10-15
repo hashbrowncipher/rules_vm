@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
+set -euo pipefail
 
 # Mount proc and sysfs
 mkdir /proc /sys
@@ -12,8 +12,9 @@ while [ "$1" != "--" ]; do
   shift
 done
 shift
-output_filename="${1}"
+mode="${1}"
 shift
+output_filename="${1}"
 
 insmod /modules/9pnet.ko
 rm /modules/9pnet.ko
@@ -27,12 +28,20 @@ mkdir /output /rootfs-tar
 mount -t 9p -o trans=virtio,version=9p2000.L output /output
 
 mkdir /overlay
-mount -t tmpfs tmpfs /overlay
+mount -t tmpfs -o size=90% tmpfs /overlay
 mkdir /overlay/upper /overlay/lower /overlay/work
 
-tar -xf /dev/vda -C /overlay/lower
+lowerdirs=""
+for dev in /dev/vd*; do
+    dev_name="${dev##*/}"
+    extract_dir="/overlay/lower/$dev_name"
+    mkdir -p "$extract_dir"
+    dd "if=$dev" bs=4M | tar -xC "$extract_dir"
+    lowerdirs="$lowerdirs:$extract_dir"
+done
 
-mount -t overlay overlay -o lowerdir=/overlay/lower,upperdir=/overlay/upper,workdir=/overlay/work /root
+lowerdirs=${lowerdirs#:}
+mount -t overlay overlay -o lowerdir=$lowerdirs,upperdir=/overlay/upper,workdir=/overlay/work /root
 
 cd /root
 mkdir -p proc sys dev
@@ -45,7 +54,11 @@ umount /root/proc
 umount /root/sys
 umount /root/dev
 
-cd /
-tar -cf "/output/${output_filename}" -C /root .
+if [ "$mode" = "layer" ]; then
+  to_tar="/overlay/upper"
+else
+  to_tar="/root"
+fi
+tar -cf "/output/${output_filename}" -C "${to_tar}" .
 
 poweroff -f

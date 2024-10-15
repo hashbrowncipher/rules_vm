@@ -1,14 +1,6 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
 def load_packages():
-    # Size: 314760
-    http_file(
-        name = "units_2.23-1build2_amd64",
-        urls = ["http://archive.ubuntu.com/ubuntu/pool/universe/u/units/units_2.23-1build2_amd64.deb"],
-        downloaded_file_path = "units_2.23-1build2_amd64.deb",
-        sha256 = "6474336b7b6aff8d6d4daa575df48b7043931894b100472347b5e846e2f587de",
-    )
-
     # Size: 1374960
     http_file(
         name = "apt_2.7.14build2_amd64",
@@ -161,6 +153,14 @@ def load_packages():
         sha256 = "8eb801f9ce084dab9bf4cbc3ec0ee5ac75516a4cc1f25e3f92298c632e75b700",
     )
 
+    # Size: 101476
+    http_file(
+        name = "kmod_31~2b.20240202-2ubuntu7_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/k/kmod/kmod_31+20240202-2ubuntu7_amd64.deb"],
+        downloaded_file_path = "kmod_31+20240202-2ubuntu7_amd64.deb",
+        sha256 = "91451843605387ed51c53dcd86816027399a03fc7173d85cab51a0f035877a63",
+    )
+
     # Size: 16794
     http_file(
         name = "libacl1_2.3.2-1build1_amd64",
@@ -169,12 +169,28 @@ def load_packages():
         sha256 = "892dd9edaded972367e19713e5b0a3144409d9ef6613da5b7734a56f8e8f582b",
     )
 
+    # Size: 50274
+    http_file(
+        name = "libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.3_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/a/apparmor/libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.3_amd64.deb"],
+        downloaded_file_path = "libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.3_amd64.deb",
+        sha256 = "bbdbb13cb3e8b3a52866eef7590a7bbf92e343ff16b048eed294ce7a3e136e74",
+    )
+
     # Size: 985310
     http_file(
         name = "libapt-pkg6.0t64_2.7.14build2_amd64",
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg6.0t64_2.7.14build2_amd64.deb"],
         downloaded_file_path = "libapt-pkg6.0t64_2.7.14build2_amd64.deb",
         sha256 = "3915b0cdfbaae551d9089400f47be749b89c30914985982b39e57fd2016be852",
+    )
+
+    # Size: 20824
+    http_file(
+        name = "libargon2-1_0~~20190702~2b.dfsg-4build1_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/a/argon2/libargon2-1_0~20190702+dfsg-4build1_amd64.deb"],
+        downloaded_file_path = "libargon2-1_0~20190702+dfsg-4build1_amd64.deb",
+        sha256 = "e2c50cb5c50ca598585397f4d4ce43e6f0b5e3ddc212c23b30bdb34ca4a61f66",
     )
 
     # Size: 37256
@@ -273,6 +289,14 @@ def load_packages():
         sha256 = "9474785cd6f398512bf8c305c3901dbb111569dccb6f5832002373c0a8ac5832",
     )
 
+    # Size: 266078
+    http_file(
+        name = "libcryptsetup12_2.7.0-1ubuntu4.1_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/c/cryptsetup/libcryptsetup12_2.7.0-1ubuntu4.1_amd64.deb"],
+        downloaded_file_path = "libcryptsetup12_2.7.0-1ubuntu4.1_amd64.deb",
+        sha256 = "968735fd6bf5bf49c3b8fd02ad709a2f4ba8c51ec1c66f1f593792eccbf523ce",
+    )
+
     # Size: 734100
     http_file(
         name = "libdb5.3t64_5.3.28~2b.dfsg2-7_amd64",
@@ -289,12 +313,28 @@ def load_packages():
         sha256 = "0a07d284ca6e2ee18208b3bf9ddc19da803d96db8230cdf26d16ac3aae5b7893",
     )
 
+    # Size: 139100
+    http_file(
+        name = "libdevmapper1.02.1_1.02.185-3ubuntu3.1_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/l/lvm2/libdevmapper1.02.1_1.02.185-3ubuntu3.1_amd64.deb"],
+        downloaded_file_path = "libdevmapper1.02.1_1.02.185-3ubuntu3.1_amd64.deb",
+        sha256 = "bf553e148a406bd77714581bc28963bac64dd0ecf2fb29b68b2fc4ecdac4cdb6",
+    )
+
     # Size: 221728
     http_file(
         name = "libext2fs2t64_1.47.0-2.4~~exp1ubuntu4.1_amd64",
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/e/e2fsprogs/libext2fs2t64_1.47.0-2.4~exp1ubuntu4.1_amd64.deb"],
         downloaded_file_path = "libext2fs2t64_1.47.0-2.4~exp1ubuntu4.1_amd64.deb",
         sha256 = "276686704314749497f1530ff9e62fd0280328be786a28db0cfe2aa31c88119e",
+    )
+
+    # Size: 146352
+    http_file(
+        name = "libfdisk1_2.39.3-9ubuntu6.1_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/u/util-linux/libfdisk1_2.39.3-9ubuntu6.1_amd64.deb"],
+        downloaded_file_path = "libfdisk1_2.39.3-9ubuntu6.1_amd64.deb",
+        sha256 = "55cf4a84ed861ca982598b459c8fb6a8b88b4a6d6d0a3bf015f18f9594613d8b",
     )
 
     # Size: 24718
@@ -359,6 +399,22 @@ def load_packages():
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/libi/libidn2/libidn2-0_2.3.7-2build1_amd64.deb"],
         downloaded_file_path = "libidn2-0_2.3.7-2build1_amd64.deb",
         sha256 = "f1be32391a2fabf06c27618a2000ae8f9a26c30fad1b482a007049ae8156d19c",
+    )
+
+    # Size: 35340
+    http_file(
+        name = "libjson-c5_0.17-1build1_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/j/json-c/libjson-c5_0.17-1build1_amd64.deb"],
+        downloaded_file_path = "libjson-c5_0.17-1build1_amd64.deb",
+        sha256 = "3ac608d78e9e981e14ba7ceb141a46e3dd3ae8d6dbb3a7ecafd2698fe9930584",
+    )
+
+    # Size: 51658
+    http_file(
+        name = "libkmod2_31~2b.20240202-2ubuntu7_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/k/kmod/libkmod2_31+20240202-2ubuntu7_amd64.deb"],
+        downloaded_file_path = "libkmod2_31+20240202-2ubuntu7_amd64.deb",
+        sha256 = "43858c80a67c3a8a5a10d8e6769e7d92614d9eb19cb14e159b4311a16b9cf54b",
     )
 
     # Size: 63062
@@ -473,14 +529,6 @@ def load_packages():
         sha256 = "52684291f6bb77a0a72c893f5c00c0742c30105d93e1f885566f4521b1f97946",
     )
 
-    # Size: 152856
-    http_file(
-        name = "libreadline8t64_8.2-4build1_amd64",
-        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/r/readline/libreadline8t64_8.2-4build1_amd64.deb"],
-        downloaded_file_path = "libreadline8t64_8.2-4build1_amd64.deb",
-        sha256 = "563977a16df03b611f5239cc1e9a0426e86479fcc616b5c9e200ea32063119e5",
-    )
-
     # Size: 50424
     http_file(
         name = "libseccomp2_2.5.5-1ubuntu3.1_amd64",
@@ -553,6 +601,14 @@ def load_packages():
         sha256 = "4863e880d6ee538e4734c430c5579c1ac933b88a42c25bc9980d0f148c54b21e",
     )
 
+    # Size: 2075192
+    http_file(
+        name = "libsystemd-shared_255.4-1ubuntu8.4_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/systemd/libsystemd-shared_255.4-1ubuntu8.4_amd64.deb"],
+        downloaded_file_path = "libsystemd-shared_255.4-1ubuntu8.4_amd64.deb",
+        sha256 = "b0880b8c72cd8d0470414ed6450f2c56bcabc8c0ea70b1d73de6f65b147f0eb0",
+    )
+
     # Size: 433004
     http_file(
         name = "libsystemd0_255.4-1ubuntu8.4_amd64",
@@ -615,6 +671,22 @@ def load_packages():
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/libz/libzstd/libzstd1_1.5.5+dfsg2-2build1.1_amd64.deb"],
         downloaded_file_path = "libzstd1_1.5.5+dfsg2-2build1.1_amd64.deb",
         sha256 = "dfcf25061e07aad7efd3f4f880ba5ad4d4d09ebe7fc8cc77ab6b8a161d6d4727",
+    )
+
+    # Size: 17808
+    http_file(
+        name = "linux-base_4.5ubuntu9_all",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/l/linux-base/linux-base_4.5ubuntu9_all.deb"],
+        downloaded_file_path = "linux-base_4.5ubuntu9_all.deb",
+        sha256 = "e0e76b1e306019516f56e6c6aeab4af0fd715487909345f3c0eb729ce0cd33f0",
+    )
+
+    # Size: 10292
+    http_file(
+        name = "linux-image-virtual_6.8.0-45.45_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-image-virtual_6.8.0-45.45_amd64.deb"],
+        downloaded_file_path = "linux-image-virtual_6.8.0-45.45_amd64.deb",
+        sha256 = "c978ddcbcd5248d5483dc5aadafb3f8bb77375b0b6efd1f9b0135d91a12d6a9f",
     )
 
     # Size: 201680
@@ -689,14 +761,6 @@ def load_packages():
         sha256 = "73166776dc49e148f5c05813171fbc5db5703e7a1e981329b63bd201abc10f42",
     )
 
-    # Size: 56484
-    http_file(
-        name = "readline-common_8.2-4build1_all",
-        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/r/readline/readline-common_8.2-4build1_all.deb"],
-        downloaded_file_path = "readline-common_8.2-4build1_all.deb",
-        sha256 = "879bfd7f8a9bc4c0f7cdc777cdd8bc6de5f8c4a2ac80c060322a1b22f13504bb",
-    )
-
     # Size: 193410
     http_file(
         name = "sed_4.9-2build1_amd64",
@@ -711,6 +775,30 @@ def load_packages():
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/sensible-utils/sensible-utils_0.0.22_all.deb"],
         downloaded_file_path = "sensible-utils_0.0.22_all.deb",
         sha256 = "410c29ff82c6916d14e235b511287e67a45cb78d509b19aab48608acdc941254",
+    )
+
+    # Size: 3470362
+    http_file(
+        name = "systemd_255.4-1ubuntu8.4_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/systemd/systemd_255.4-1ubuntu8.4_amd64.deb"],
+        downloaded_file_path = "systemd_255.4-1ubuntu8.4_amd64.deb",
+        sha256 = "be95b87689500e98fc50065db07b2a3220f2c928ba9649c6a37e1f349049c0ed",
+    )
+
+    # Size: 104122
+    http_file(
+        name = "systemd-dev_255.4-1ubuntu8.4_all",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/systemd/systemd-dev_255.4-1ubuntu8.4_all.deb"],
+        downloaded_file_path = "systemd-dev_255.4-1ubuntu8.4_all.deb",
+        sha256 = "242a806b46a415c401754f3756d3951e01b5d994dcdff9278f1b944391a906da",
+    )
+
+    # Size: 11880
+    http_file(
+        name = "systemd-sysv_255.4-1ubuntu8.4_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/systemd/systemd-sysv_255.4-1ubuntu8.4_amd64.deb"],
+        downloaded_file_path = "systemd-sysv_255.4-1ubuntu8.4_amd64.deb",
+        sha256 = "e0a344240d4ee072b5c19863e50fc846342534e2939ba1581b6e480f52a069a6",
     )
 
     # Size: 34170
@@ -737,6 +825,14 @@ def load_packages():
         sha256 = "36de43b15853ccae0028e9a767613770c704833f82586f28eb262f0311adb8a8",
     )
 
+    # Size: 1873078
+    http_file(
+        name = "udev_255.4-1ubuntu8.4_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/s/systemd/udev_255.4-1ubuntu8.4_amd64.deb"],
+        downloaded_file_path = "udev_255.4-1ubuntu8.4_amd64.deb",
+        sha256 = "03fa1ad676e5949ca6cd9c7c91b777ed7a442c49fe7c98758cf1caf92bb1f568",
+    )
+
     # Size: 1127370
     http_file(
         name = "util-linux_2.39.3-9ubuntu6.1_amd64",
@@ -751,4 +847,20 @@ def load_packages():
         urls = ["http://archive.ubuntu.com/ubuntu/pool/main/z/zlib/zlib1g_1.3.dfsg-3.1ubuntu2.1_amd64.deb"],
         downloaded_file_path = "zlib1g_1.3.dfsg-3.1ubuntu2.1_amd64.deb",
         sha256 = "7074b6a2f6367a10d280c00a1cb02e74277709180bab4f2491a2f355ab2d6c20",
+    )
+
+    # Size: 14707364
+    http_file(
+        name = "linux-image-6.8.0-45-generic_6.8.0-45.45_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/l/linux-signed/linux-image-6.8.0-45-generic_6.8.0-45.45_amd64.deb"],
+        downloaded_file_path = "linux-image-6.8.0-45-generic_6.8.0-45.45_amd64.deb",
+        sha256 = "4e2ea68d06ddda7de692ccfa052f2fbe58f34bf068c2009f7b3a10d5fd6f54c7",
+    )
+
+    # Size: 39065792
+    http_file(
+        name = "linux-modules-6.8.0-45-generic_6.8.0-45.45_amd64",
+        urls = ["http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-modules-6.8.0-45-generic_6.8.0-45.45_amd64.deb"],
+        downloaded_file_path = "linux-modules-6.8.0-45-generic_6.8.0-45.45_amd64.deb",
+        sha256 = "6d3438855a9920a7ba53ff1787edd5ebfa13802569a71dd5c126baf18de728c1",
     )

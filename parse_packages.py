@@ -178,13 +178,13 @@ def main():
 
     # Generate Bazel rules
     names, rules = generate_bazel_rules(packages, base_url)
-    with Path("output.lock.bzl").open("w") as fh:
+    with Path("packages-workspace.bzl").open("w") as fh:
         fh.write('load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")\n\n')
         fh.write('def load_packages():')
         for rule in rules:
             fh.write(rule)
 
-    with Path("packages-workspace.bzl").open("w") as fh:
+    with Path("output-build.bzl").open("w") as fh:
         fh.write("def make_packages(name):\n")
         fh.write("    native.filegroup(\n")
         fh.write("        name=name,\n")
