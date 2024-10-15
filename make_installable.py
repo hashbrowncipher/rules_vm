@@ -4,14 +4,18 @@ import sys
 from lib.filesystem import Filesystem
 import io
 
+
 def make_initscript(packages):
     ret = io.StringIO()
+
     def output(*args, **kwargs):
         print(*args, file=ret, **kwargs)
 
     output("#!/bin/bash")
     output("set -euo pipefail")
-    output("filename=/mnt/dists/local/main/binary-$(dpkg --print-architecture)/Packages")
+    output(
+        "filename=/mnt/dists/local/main/binary-$(dpkg --print-architecture)/Packages"
+    )
     output("archive_name=/var/lib/apt/lists/${filename//\//_}")
     output('ln -s "${filename}" "${archive_name}"')
     output("apt-cache dumpavail | dpkg --merge-avail")
@@ -21,6 +25,7 @@ def make_initscript(packages):
     output("EOF")
     output("apt-get -y dselect-upgrade")
     return ret.getvalue().encode()
+
 
 def main():
     fs = Filesystem()
@@ -44,5 +49,6 @@ def main():
     with output_path.open("wb") as fh:
         fs.write(fh)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     raise SystemExit(main())

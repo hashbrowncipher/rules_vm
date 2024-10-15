@@ -5,6 +5,7 @@ import tarfile
 import fnmatch
 import re
 
+
 def extract_useful(ti):
     return (
         ti.name,
@@ -17,7 +18,9 @@ def extract_useful(ti):
         ti.pax_headers,
     )
 
+
 LOCALE_MATCHER = re.compile(fnmatch.translate("usr/share/locale/*/LC_MESSAGES/*.mo"))
+
 
 def is_excluded(name):
     if name.startswith("usr/share/doc/"):
@@ -27,6 +30,7 @@ def is_excluded(name):
         return True
 
     return bool(LOCALE_MATCHER.match(name))
+
 
 def write_file(out_fh, info, fh):
     if not info.isdir() and is_excluded(info.name):
@@ -142,6 +146,3 @@ class Filesystem:
 
     def write(self, *args):
         return write_image(self, *args)
-
-
-

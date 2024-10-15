@@ -8,19 +8,20 @@ import string
 WANTED_PACKAGES = ["apt", "gpgv", "mawk", "systemd-sysv", "linux-image-virtual", "udev"]
 FILENAME_REGEXP = re.compile(b"\nFilename:.*$", re.M)
 
+
 def parse_package(raw):
     ret = dict()
     raw = raw.decode()
     for line in raw.splitlines():
-        if line.startswith(' '):
+        if line.startswith(" "):
             # Append onto the last item
             last_field = list(ret.keys())[-1]
-            ret[last_field] += '\n' + line
-        elif ':' in line:
-            field, value = line.split(':', 1)
+            ret[last_field] += "\n" + line
+        elif ":" in line:
+            field, value = line.split(":", 1)
             ret[field] = value.lstrip()
         else:
-            raise ValueError("Unprocessable line", line) 
+            raise ValueError("Unprocessable line", line)
 
     return ret
 
@@ -56,7 +57,9 @@ def parse_packages_files(paths):
 
     return ret
 
+
 ALLOWED_CHARACTERS = set(string.ascii_letters + string.digits + "-_.")
+
 
 def rewrite_repo_rule(name):
     ret = []
@@ -66,20 +69,21 @@ def rewrite_repo_rule(name):
         ret.append(c)
     return "".join(ret)
 
+
 def generate_bazel_rules(packages, base_url):
     names = []
     rules = []
     for pkg in packages:
         parsed = pkg.parsed
-        package_name = parsed.get('Package')
-        version = parsed.get('Version')
-        filename = parsed.get('Filename')
-        sha256 = parsed.get('SHA256')
-        size = parsed.get('Size')
+        package_name = parsed.get("Package")
+        version = parsed.get("Version")
+        filename = parsed.get("Filename")
+        sha256 = parsed.get("SHA256")
+        size = parsed.get("Size")
 
         # Construct the download URL
         try:
-            url = base_url + filename.lstrip('/')
+            url = base_url + filename.lstrip("/")
         except AttributeError:
             print(parsed)
             raise
@@ -103,6 +107,7 @@ def generate_bazel_rules(packages, base_url):
         rules.append(bazel_rule)
     return names, rules
 
+
 def modify_packages(packages):
     modified_packages = []
     for pkg in packages:
@@ -111,6 +116,7 @@ def modify_packages(packages):
         modified_packages.append(pkg.rewrite_filename(basename))
     return modified_packages
 
+
 def process_depends(line):
     if line is None:
         return []
@@ -118,12 +124,14 @@ def process_depends(line):
     # lop off any dependency qualifiers
     return [x.strip().split()[0] for x in line.split(",")]
 
+
 def get_dependencies(package):
     parsed = package.parsed
     ret = list()
     for key in ("Depends", "Pre-Depends"):
         ret.extend(process_depends(parsed.get(key)))
     return set(ret)
+
 
 def get_needed_packages(packages_info, required):
     unprocessed = set(required)
@@ -152,7 +160,9 @@ def get_needed_packages(packages_info, required):
 
 
 def filter_packages(packages, wanted_packages):
-    required = {k for k, v in packages.items() if v.parsed.get("Priority") == "required"}
+    required = {
+        k for k, v in packages.items() if v.parsed.get("Priority") == "required"
+    }
     required.update(wanted_packages)
     all_wanted_packages = get_needed_packages(packages, required)
     return [v for k, v in packages.items() if k in all_wanted_packages]
@@ -160,17 +170,17 @@ def filter_packages(packages, wanted_packages):
 
 def main():
     filenames = (
-        'packages/noble_universe',
-        'packages/noble-updates_universe',
-        'packages/noble_main',
-        'packages/noble-updates_main'
+        "packages/noble_universe",
+        "packages/noble-updates_universe",
+        "packages/noble_main",
+        "packages/noble-updates_main",
     )
     paths = [Path(x) for x in filenames]
-    base_url = 'http://archive.ubuntu.com/ubuntu/'
+    base_url = "http://archive.ubuntu.com/ubuntu/"
 
     # Output filenames
-    bazel_output_file = 'packages.bzl'
-    packages_output_file = 'Packages_modified'
+    bazel_output_file = "packages.bzl"
+    packages_output_file = "Packages_modified"
 
     # Parse the Packages files
     package_info = parse_packages_files(paths)
@@ -179,8 +189,10 @@ def main():
     # Generate Bazel rules
     names, rules = generate_bazel_rules(packages, base_url)
     with Path("packages-workspace.bzl").open("w") as fh:
-        fh.write('load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")\n\n')
-        fh.write('def load_packages():')
+        fh.write(
+            'load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")\n\n'
+        )
+        fh.write("def load_packages():")
         for rule in rules:
             fh.write(rule)
 
@@ -203,5 +215,5 @@ def main():
             fh.write(b"\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())
