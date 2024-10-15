@@ -1,8 +1,8 @@
-def qemu_overlay(name, kernel, initramfs, src_tarballs, mode="whole"):
+def qemu_overlay(name, kernel, initramfs, src_tarballs, mode = "whole"):
     srcs = [
         ":qemu_overlay_run.py",
         kernel,
-        initramfs
+        initramfs,
     ]
     srcs.extend(src_tarballs)
     args = [
